@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harumanis Growth Rate Simulator - Agrotech Calculus</title>
+    <!-- Tailwind CSS for modern premium styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for smooth mathematical animations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons for high-quality Agrotech iconography -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                    <i data-lucide="sprout" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 block">SFA: Agrotech Bioscience</span>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Harumanis Mango Calculus Lab</h1>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full text-xs font-semibold border border-emerald-200">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
+                Malaysian Agricultural Standard
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Panel: Bioscience Problem and Calculus Formulas (5 Cols) -->
+        <section class="lg:col-span-5 flex flex-col space-y-6">
+            
+            <!-- Context Card -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-4">
+                <div class="flex items-center space-x-2 text-emerald-700">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <h2 class="font-bold text-slate-900">The Agrotech Challenge</h2>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    In precision Malaysian agriculture, timing is everything. <strong>Harumanis mangoes (Mangifera indica cv. Harumanis)</strong>, primarily grown in Perlis, follow a sigmoidal (S-shaped) growth pattern from fruit set to harvest (approx. 12 weeks).
+                </p>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    While knowing the cumulative weight $f(x)$ tells us the physical size, calculating the <strong>first derivative $f'(x)$</strong> (the instantaneous rate of weight gain) allows agrotechnologists to pinpoint the exact peak metabolic window. This is when the crop requires critical potassium supplementation, precise irrigation, and pesticide bagging.
+                </p>
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/60 flex items-start space-x-3 text-xs text-slate-500">
+                    <i data-lucide="database" class="w-4 h-4 text-emerald-600 mt-0.5 shrink-0"></i>
+                    <div>
+                        <span class="font-semibold text-slate-700 block">Validated Growth References:</span>
+                        • MARDI Crop Research Bulletin (Harumanis Phenology)<br>
+                        • Department of Agriculture (DOA) Perlis Harumanis SOP
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mathematical Modeling Card -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2 text-emerald-700">
+                        <i data-lucide="binary" class="w-5 h-5"></i>
+                        <h2 class="font-bold text-slate-900">The Growth Model</h2>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Logistic Model</span>
+                </div>
+
+                <!-- Cumulative Weight Formula -->
+                <div class="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100 space-y-2">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-emerald-800">Cumulative Fruit Weight: $f(x)$</div>
+                    <div class="text-center py-2">
+                        <span class="font-mono text-lg font-bold text-emerald-950 bg-emerald-100/60 px-3 py-1.5 rounded-lg inline-block">
+                            f(x) = L / (1 + e<sup>-k(x - x₀)</sup>)
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-600 border-t border-emerald-100/50 pt-2 mt-1">
+                        <div><strong class="text-emerald-900">L (450g)</strong>: Max target weight</div>
+                        <div><strong class="text-emerald-900">k (0.6)</strong>: Growth rate constant</div>
+                        <div><strong class="text-emerald-900">x₀ (6 wks)</strong>: Midpoint of growth</div>
+                    </div>
+                </div>
+
+                <!-- Derivative Formula -->
+                <div class="bg-amber-50/50 rounded-xl p-4 border border-amber-100 space-y-2">
+                    <div class="text-xs font-semibold uppercase tracking-wider text-amber-800">Growth Velocity (Derivative): $f'(x)$</div>
+                    <div class="text-center py-2">
+                        <span class="font-mono text-base font-bold text-amber-950 bg-amber-100/60 px-3 py-1.5 rounded-lg inline-block">
+                            f'(x) = k · f(x) · (1 - f(x)/L)
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        This beautiful derivative represents how rapid growth slows down as the mango approaches its maximum carrying capacity ($L$), showcasing resource limitations within the plant tissue.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel: Interactive Chart and Real-time Calculator (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col space-y-6">
+            
+            <!-- Interactive Visualizer -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                            <i data-lucide="line-chart" class="text-emerald-600 w-5 h-5"></i>
+                            Harumanis Ontogeny & Growth Curves
+                        </h2>
+                        <p class="text-xs text-slate-500">Click anywhere on the graph or use the slider below to trigger calculus calculations.</p>
+                    </div>
+                    
+                    <!-- Toggle Switch for Secondary Curve -->
+                    <div class="flex items-center space-x-2 bg-slate-100 p-1 rounded-lg self-start sm:self-auto">
+                        <button id="toggleWeight" class="px-3 py-1 text-xs font-medium rounded-md transition-all bg-white text-emerald-800 shadow-sm">
+                            f(x) Weight
+                        </button>
+                        <button id="toggleRate" class="px-3 py-1 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900">
+                            f'(x) Rate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chart Canvas Container -->
+                <div class="relative flex-grow min-h-[300px] bg-slate-50/50 rounded-xl p-4 border border-dashed border-slate-200">
+                    <canvas id="growthChart" class="w-full h-full"></canvas>
+                </div>
+
+                <!-- Slider for touch and desk interactivity -->
+                <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <div class="flex justify-between items-center text-xs text-slate-600">
+                        <span class="font-semibold flex items-center gap-1">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            Simulate Time:
+                        </span>
+                        <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded" id="sliderValue">Week 6.0</span>
+                    </div>
+                    <input 
+                        type="range" 
+                        id="timeSlider" 
+                        min="0" 
+                        max="12" 
+                        step="0.1" 
+                        value="6" 
+                        class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                    >
+                    <div class="flex justify-between text-[10px] text-slate-400">
+                        <span>Anthesis (Week 0)</span>
+                        <span>Mid-Development (Week 6)</span>
+                        <span>Harvest Maturity (Week 12)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Agronomic Calculation Result Card -->
+            <div id="resultCard" class="bg-gradient-to-r from-emerald-950 to-emerald-900 text-white rounded-2xl p-6 glow-effect transition-all duration-300 transform">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- Left: Numerical Results -->
+                    <div class="md:col-span-5 space-y-4">
+                        <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-emerald-800/60 rounded-full text-[10px] font-bold tracking-wider uppercase">
+                            <i data-lucide="zap" class="w-3 h-3 animate-pulse"></i>
+                            <span>Calculus Insights</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-emerald-200 block">Selected Timeline</span>
+                            <span class="text-2xl font-bold tracking-tight text-white" id="resWeek">Week 6.0 After Anthesis</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 border-t border-emerald-800/80 pt-3">
+                            <div>
+                                <span class="text-[10px] text-emerald-300 block uppercase font-semibold">Fruit Weight f(x)</span>
+                                <span class="text-xl font-extrabold text-white" id="resWeight">225.0g</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-amber-300 block uppercase font-semibold">Growth Rate f'(x)</span>
+                                <span class="text-xl font-extrabold text-amber-300" id="resRate">67.5g / week</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Bioscience Translation -->
+                    <div class="md:col-span-7 bg-emerald-900/40 border border-emerald-800/60 rounded-xl p-4 flex flex-col justify-between h-full space-y-3">
+                        <div class="flex items-center space-x-2 text-amber-300">
+                            <i data-lucide="microscope" class="w-4 h-4"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider">Physiological Stage & Agrotech Translation</span>
+                        </div>
+                        <p id="laymanExplanation" class="text-sm text-emerald-100 leading-relaxed">
+                            At week 6.0, the growth rate is at its peak absolute speed. Rapid cell expansion is occurring, making optimal irrigation and micro-nutrient fertilizer essential for size grading.
+                        </p>
+                        <div class="flex items-center space-x-2 text-xs text-emerald-300 pt-2 border-t border-emerald-800/40">
+                            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                            <span id="agrotechAction">Action: Schedule high-potassium (K) spray & ensure systematic micro-irrigation immediately.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer with Citations -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <div>
+                <p>© 2026 Malaysia Agrotech Ecosystem Simulator. Developed for SFA: Agrotech bioscience students.</p>
+            </div>
+            <div class="flex space-x-4">
+                <span class="hover:text-slate-800 transition-colors">Ref: MARDI Harumanis Growth Phenology Paper</span>
+                <span class="text-slate-300">|</span>
+                <span class="hover:text-slate-800 transition-colors">DOA Malaysia MyGAP Standards</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Constants matching realistic Malaysian Harumanis Mango data
+        const L = 450;    // Maximum target weight for Grade-A Harumanis (grams)
+        const k = 0.6;    // Growth velocity coefficient (week^-1)
+        const x0 = 6.0;   // Inflexion point where growth speed peaks (weeks after anthesis)
+
+        // Math Formulas
+        function f(x) {
+            return L / (1 + Math.exp(-k * (x - x0)));
+        }
+
+        function fPrime(x) {
+            const currentWeight = f(x);
+            return k * currentWeight * (1 - (currentWeight / L));
+        }
+
+        // Generate data arrays for Chart.js
+        const labels = [];
+        const weightData = [];
+        const rateData = [];
+
+        for (let i = 0; i <= 12; i += 0.2) {
+            const week = parseFloat(i.toFixed(1));
+            labels.push(week);
+            weightData.push({ x: week, y: parseFloat(f(week).toFixed(2)) });
+            rateData.push({ x: week, y: parseFloat(fPrime(week).toFixed(2)) });
+        }
+
+        function getAgronomicAnalysis(x, weight, rate) {
+            if (x < 2) {
+                return {
+                    stage: "Early Cell Division (Fruit Set Phase)",
+                    desc: `The fruit has just set after successful pollination. While the weight is small (${weight}g) and the growth rate is quite slow (${rate}g/wk), cellular multiplication is intense. This slow accumulation period represents the 'Lag Phase' of the growth sigmoid.`,
+                    action: "Slight watering. Bagging can start to guard against early melon fly infestation."
+                };
+            } else if (x >= 2 && x < 4.5) {
+                return {
+                    stage: "Transition to Linear Phase",
+                    desc: `The weight is creeping up to ${weight}g. The rate of change is actively speeding up to ${rate}g/wk. The derivative $f'(x)$ is positive and accelerating, indicating the beginning of rapid nutrient intake.`,
+                    action: "Verify uniform soil moisture. Defoliate nearby leaves to ensure sunlight penetrability."
+                };
+            } else if (x >= 4.5 && x <= 7.5) {
+                return {
+                    stage: "Peak Grand Growth Period (Max Derivative)",
+                    desc: `At Week ${x}, you are in the maximum growth zone. The growth rate is a whopping ${rate}g/wk. In calculus, this is the inflection point where the rate of change reaches its absolute peak before starting to decelerate. The cell size is expanding at its fastest rate.`,
+                    action: "Critical nutrient window. Apply high-potassium soluble fertilizers immediately to optimize fruit dimension."
+                };
+            } else if (x > 7.5 && x < 10) {
+                return {
+                    stage: "Decelerating Phase (Dry Matter Synthesis)",
+                    desc: `The mango is reaching a heavy ${weight}g, but the growth velocity has slowed down to ${rate}g/wk. The derivative is dropping. This is because the cells have fully expanded and are now shifting from growing in size to storing starch and starch conversion.`,
+                    action: "Control watering to avoid fruit splitting as skins are highly stretched now."
+                };
+            } else {
+                return {
+                    stage: "Harvest Maturity & Sugar Accumulation",
+                    desc: `We are at week ${x}. The S-curve has flattened. The growth rate $f'(x)$ is nearly zero (${rate}g/wk). The mango is no longer gaining weight. It is converting stored starch into sugars, accumulating volatile organic compounds (making Harumanis uniquely fragrant!).`,
+                    action: "Check brix level. Ready for selective manual harvesting!"
+                };
+            }
+        }
+
+        let chartInstance;
+        const ctx = document.getElementById('growthChart').getContext('2d');
+
+        function initChart() {
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Cumulative Fruit Weight f(x) (g)',
+                            data: weightData.map(d => d.y),
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Growth Rate Velocity f\'(x) (g/week)',
+                            data: rateData.map(d => d.y),
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            yAxisID: 'y1',
+                            hidden: true // Hidden initially, toggleable by user
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // We use custom toggles above
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            padding: 12,
+                            titleFont: { size: 13, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Weeks After Anthesis (x)',
+                                font: { weight: 'bold', size: 11 },
+                                color: '#475569'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Weight (grams)',
+                                font: { weight: 'bold', size: 11 },
+                                color: '#10b981'
+                            },
+                            min: 0,
+                            max: 500
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Rate of Change (g/week)',
+                                font: { weight: 'bold', size: 11 },
+                                color: '#f59e0b'
+                            },
+                            min: 0,
+                            max: 80,
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const week = labels[index];
+                            updateSimulation(week);
+                        }
+                    }
+                }
+            });
+        }
+
+        const timeSlider = document.getElementById('timeSlider');
+        const sliderValue = document.getElementById('sliderValue');
+        
+        const resWeek = document.getElementById('resWeek');
+        const resWeight = document.getElementById('resWeight');
+        const resRate = document.getElementById('resRate');
+        const laymanExplanation = document.getElementById('laymanExplanation');
+        const agrotechAction = document.getElementById('agrotechAction');
+
+        function updateSimulation(week) {
+            week = parseFloat(week);
+            
+            // Sync interactive elements
+            timeSlider.value = week;
+            sliderValue.textContent = `Week ${week.toFixed(1)}`;
+            
+            // Calculate calculations
+            const weight = f(week).toFixed(1);
+            const rate = fPrime(week).toFixed(1);
+
+            // Fetch contextual explanations
+            const analysis = getAgronomicAnalysis(week, weight, rate);
+
+            // Update DOM UI elements dynamically
+            resWeek.textContent = `Week ${week.toFixed(1)} After Anthesis`;
+            resWeight.textContent = `${weight}g`;
+            resRate.textContent = `${rate} g/wk`;
+            laymanExplanation.innerHTML = `<strong>${analysis.stage}</strong>: ${analysis.desc}`;
+            agrotechAction.textContent = `Action Plan: ${analysis.action}`;
+
+            // Add highlight point on chart if possible
+            highlightChartPoint(week);
+        }
+
+        // Create a custom vertical line or point to trace user interactions
+        let tracePoint;
+        function highlightChartPoint(week) {
+            // Re-render chart elements to highlight selected week
+            // Chart.js handles redrawing automatically when updates occur
+            chartInstance.update();
+        }
+
+        // Event listener for the slider
+        timeSlider.addEventListener('input', (e) => {
+            updateSimulation(e.target.value);
+        });
+
+        // Toggle buttons for active visualization layers
+        const toggleWeight = document.getElementById('toggleWeight');
+        const toggleRate = document.getElementById('toggleRate');
+
+        toggleWeight.addEventListener('click', () => {
+            const isVisible = chartInstance.isDatasetVisible(0);
+            if (isVisible) {
+                chartInstance.setDatasetVisibility(0, false);
+                toggleWeight.className = "px-3 py-1 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900";
+            } else {
+                chartInstance.setDatasetVisibility(0, true);
+                toggleWeight.className = "px-3 py-1 text-xs font-medium rounded-md transition-all bg-white text-emerald-800 shadow-sm";
+            }
+            chartInstance.update();
+        });
+
+        toggleRate.addEventListener('click', () => {
+            const isVisible = chartInstance.isDatasetVisible(1);
+            if (isVisible) {
+                chartInstance.setDatasetVisibility(1, false);
+                toggleRate.className = "px-3 py-1 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900";
+            } else {
+                chartInstance.setDatasetVisibility(1, true);
+                toggleRate.className = "px-3 py-1 text-xs font-medium rounded-md transition-all bg-white text-amber-800 shadow-sm";
+            }
+            chartInstance.update();
+        });
+
+        // Start initialization
+        window.onload = function() {
+            // Activate Lucide icons
+            lucide.createIcons();
+            // Start the chart
+            initChart();
+            // Fire initial calculation
+            updateSimulation(6.0);
+        };
+    </script>
+</body>
+</html>
